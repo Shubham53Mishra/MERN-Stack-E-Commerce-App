@@ -18,11 +18,14 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { logoutUser } from "@/store/auth-slice";
+import { logoutUser, resetTokencredentials } from "@/store/auth-slice";
 import UserCartWrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
 import { fetchCartItems } from "@/store/shop/cart-slice";
 import { Label } from "../ui/label";
+import { useNavigate } from "react-router-dom";
+import { resetTokencredentials } from "@/store/auth-slice";
+
 
 function MenuItems() {
   const navigate = useNavigate();
@@ -72,7 +75,11 @@ function HeaderRightContent() {
   const dispatch = useDispatch();
 
   function handleLogout() {
-    dispatch(logoutUser());
+    // dispatch(logoutUser());
+    dispatch(resetTokencredentials());
+    sessionStorage.clear();
+    navigate("/auth/login");  
+
   }
 
   useEffect(() => {
